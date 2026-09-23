@@ -1,3063 +1,808 @@
 /* =====================================================
-   ROOT
+RESPONSIVE IMPROVEMENTS
+Mobile + iPad + Desktop
 ===================================================== */
 
-:root {
-
-    --pink: #e78aa7;
-    --pink-light: #f8ccd9;
-    --pink-soft: #fff0f4;
-
-    --cream: #fffaf5;
-    --cream-dark: #f7e7dc;
-
-    --brown: #914b64;
-    --brown-dark: #713b4d;
-
-    --line: #d88ca5;
-    --shadow: #bd718b;
-
-    --purple: #9b91bd;
-
-    --white: #ffffff;
-
-}
-
-
-/* =====================================================
-   RESET
-===================================================== */
+/* ป้องกันเนื้อหาล้นหน้าจอ */
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+  box-sizing: border-box;
+  }
 
 html {
-    scroll-behavior: smooth;
+width: 100%;
+overflow-x: hidden;
+-webkit-text-size-adjust: 100%;
 }
-
 
 body {
-
-    min-height: 100vh;
-
-    font-family:
-        "Mali",
-        cursive;
-
-    color: var(--brown);
-
-    background:
-        #f9dbe5;
-
-    overflow-x: hidden;
-
+width: 100%;
+overflow-x: hidden;
 }
 
-
-button,
-input {
-    font-family: inherit;
+img,
+video,
+iframe {
+max-width: 100%;
 }
 
-
-/* =====================================================
-   PAGE
-===================================================== */
+button {
+touch-action: manipulation;
+-webkit-tap-highlight-color: transparent;
+}
 
 .page {
-
-    display: none;
-
-    min-height: 100vh;
-
-    padding: 25px;
-
-    animation:
-        pageIn .35s ease;
-
+width: 100%;
+min-width: 0;
 }
 
-
-.page.active {
-    display: block;
+.retro-window,
+.music-app {
+width: 100%;
+max-width: 1300px;
+min-width: 0;
 }
 
-
-@keyframes pageIn {
-
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+/* ป้องกันข้อความและปุ่มเบียดกัน */
+h1,
+h2,
+h3,
+p,
+strong,
+small {
+overflow-wrap: anywhere;
 }
 
-
-/* =====================================================
-   FLOATING HEARTS
-===================================================== */
-
-.floating-hearts {
-
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    overflow: hidden;
-
-    z-index: 100;
-
-}
-
-
-.floating-hearts span {
-
-    position: absolute;
-
-    color: rgba(231,138,167,.4);
-
-    animation:
-        floatHeart 8s linear infinite;
-
-}
-
-
-.floating-hearts span:nth-child(1) {
-    left: 8%;
-    bottom: -30px;
-    animation-delay: 0s;
-}
-
-.floating-hearts span:nth-child(2) {
-    left: 28%;
-    bottom: -30px;
-    animation-delay: 2s;
-}
-
-.floating-hearts span:nth-child(3) {
-    left: 48%;
-    bottom: -30px;
-    animation-delay: 4s;
-}
-
-.floating-hearts span:nth-child(4) {
-    left: 65%;
-    bottom: -30px;
-    animation-delay: 1s;
-}
-
-.floating-hearts span:nth-child(5) {
-    left: 82%;
-    bottom: -30px;
-    animation-delay: 3s;
-}
-
-.floating-hearts span:nth-child(6) {
-    left: 92%;
-    bottom: -30px;
-    animation-delay: 5s;
-}
-
-
-@keyframes floatHeart {
-
-    0% {
-        transform:
-            translateY(0)
-            rotate(0deg);
-
-        opacity: 0;
-    }
-
-    15% {
-        opacity: 1;
-    }
-
-    100% {
-
-        transform:
-            translateY(-110vh)
-            rotate(25deg);
-
-        opacity: 0;
-
-    }
-
-}
-
-
-/* =====================================================
-   COMMON
-===================================================== */
-
-.eyebrow {
-
-    display: block;
-
-    font-family:
-        "Silkscreen",
-        monospace;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    color: var(--pink);
-
-}
-
-
-.main-btn {
-
-    border: 2px solid var(--brown);
-
-    background: var(--pink);
-
-    color: white;
-
-    padding: 13px 22px;
-
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    font-weight: 700;
-
-    box-shadow:
-        4px 4px 0 var(--brown);
-
-    transition: .2s ease;
-
-}
-
-
-.main-btn:hover {
-
-    transform:
-        translate(-2px,-2px);
-
-    box-shadow:
-        6px 6px 0 var(--brown);
-
-}
-
-
-.main-btn:active {
-
-    transform:
-        translate(2px,2px);
-
-    box-shadow:
-        2px 2px 0 var(--brown);
-
-}
-
-
-.text-btn {
-
-    border: none;
-
-    background: none;
-
-    color: var(--pink);
-
-    cursor: pointer;
-
-    margin-top: 15px;
-
-    text-decoration: underline;
-
-}
-
-
-.center-btn {
-    margin-top: 25px;
-}
-
-
-/* =========================
-   BACK BUTTON
-========================= */
-
+.main-btn,
+.text-btn,
 .back-btn,
-.back-button {
-    position: absolute;
-    left: 18px;
-    top: 18px;
-
-    z-index: 20;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 86px;
-    height: 38px;
-
-    padding: 0 16px;
-
-    border: 1.5px solid var(--line);
-    border-radius: 999px;
-
-    background: #fffaf5;
-    color: var(--brown);
-
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    box-shadow: 0 3px 0 var(--shadow);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+.back-button,
+.music-back-btn,
+.hug-btn {
+max-width: 100%;
 }
-
-.back-btn:hover,
-.back-button:hover {
-    background: var(--pink-soft);
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 5px 0 var(--shadow);
-}
-
-.back-btn:active,
-.back-button:active {
-    transform: translateY(1px);
-
-    box-shadow: 0 2px 0 var(--shadow);
-}
-
-.retro-window {
-    position: relative;
-}
-
 
 /* =====================================================
-   RETRO WINDOW
+TABLET / iPAD
 ===================================================== */
 
-.retro-window {
+@media (min-width: 651px) and (max-width: 1024px) {
 
-    width: min(
-        1100px,
-        100%
-    );
-
-    min-height:
-        calc(100vh - 50px);
-
-    margin:
-        auto;
-
-    background:
-        var(--cream);
-
-    border:
-        3px solid var(--brown);
-
-    border-radius:
-        15px;
-
-    overflow:
-        hidden;
-
-    box-shadow:
-        9px 9px 0 var(--shadow);
-
+```
+.page {
+    padding: 18px;
 }
 
-
-.window-header {
-
-    height:
-        44px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    padding:
-        0 15px;
-
-    background:
-        var(--pink-light);
-
-    border-bottom:
-        2px solid var(--brown);
-
+.retro-window,
+.music-app {
+    min-height: calc(100vh - 36px);
+    border-radius: 16px;
 }
-
-
-.window-controls {
-
-    display:
-        flex;
-
-    gap:
-        6px;
-
-}
-
-
-.window-controls span {
-
-    width:
-        11px;
-
-    height:
-        11px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    color:
-        var(--pink);
-
-    font-size:
-        12px;
-
-}
-
-
-.window-title {
-
-    font-family:
-        "Silkscreen",
-        monospace;
-
-    font-size:
-        10px;
-
-}
-
-
-.window-buttons {
-
-    font-family:
-        monospace;
-
-    font-size:
-        12px;
-
-}
-
-
-/* =====================================================
-   LOCK PAGE
-===================================================== */
-
-.lock-background {
-
-    min-height:
-        calc(100vh - 50px);
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    position:
-        relative;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff1f5,
-            #f8d7e2,
-            #fffaf5
-        );
-
-    border-radius:
-        20px;
-
-}
-
-
-.pixel-cloud {
-
-    position:
-        absolute;
-
-    color:
-        white;
-
-    font-size:
-        55px;
-
-    opacity:
-        .7;
-
-    animation:
-        cloudMove 7s ease-in-out infinite;
-
-}
-
-
-.cloud-1 {
-
-    top:
-        15%;
-
-    left:
-        10%;
-
-}
-
-
-.cloud-2 {
-
-    top:
-        28%;
-
-    right:
-        12%;
-
-    animation-delay:
-        2s;
-
-}
-
-
-@keyframes cloudMove {
-
-    50% {
-        transform:
-            translateY(-12px);
-    }
-
-}
-
-
-.lock-card {
-
-    width:
-        min(430px, 95%);
-
-    text-align:
-        center;
-
-    padding:
-        40px 30px;
-
-    background:
-        rgba(255,250,245,.94);
-
-    border:
-        3px solid var(--brown);
-
-    border-radius:
-        20px;
-
-    box-shadow:
-        8px 8px 0 var(--shadow);
-
-}
-
-
-.lock-bow {
-
-    font-size:
-        45px;
-
-    margin-bottom:
-        10px;
-
-}
-
-
-.lock-card h1 {
-
-    font-family:
-        "Silkscreen",
-        monospace;
-
-    font-size:
-        27px;
-
-    line-height:
-        1.5;
-
-    margin:
-        10px 0;
-
-    color:
-        var(--brown-dark);
-
-}
-
-
-.lock-card h2 {
-
-    color:
-        var(--pink);
-
-    margin-bottom:
-        12px;
-
-}
-
-
-.lock-description {
-
-    line-height:
-        1.8;
-
-    margin-bottom:
-        20px;
-
-}
-
-
-/* PIN */
-
-.pin-dots {
-
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    gap:
-        12px;
-
-    margin:
-        20px 0;
-
-}
-
-
-.pin-dots span {
-
-    width:
-        15px;
-
-    height:
-        15px;
-
-    border:
-        2px solid var(--pink);
-
-    border-radius:
-        50%;
-
-    transition:
-        .2s ease;
-
-}
-
-
-.pin-dots span.filled {
-
-    background:
-        var(--pink);
-
-    transform:
-        scale(1.15);
-
-}
-
-
-.keypad {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:
-        9px;
-
-    max-width:
-        270px;
-
-    margin:
-        0 auto 20px;
-
-}
-
-
-.keypad button {
-
-    aspect-ratio:
-        1;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:
-        12px;
-
-    background:
-        var(--pink-soft);
-
-    color:
-        var(--brown);
-
-    font-size:
-        18px;
-
-    cursor:
-        pointer;
-
-    box-shadow:
-        2px 2px 0 var(--line);
-
-    transition:
-        .15s;
-
-}
-
-
-.keypad button:hover {
-
-    background:
-        var(--pink-light);
-
-}
-
-
-.keypad button:active {
-
-    transform:
-        scale(.94);
-
-}
-
-
-/* =====================================================
-   WELCOME
-===================================================== */
 
 .welcome-content {
-
-    min-height:
-        calc(100vh - 100px);
-
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    align-items:
-        center;
-
-    gap:
-        40px;
-
-    padding:
-        50px;
-
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    padding: 35px 25px;
 }
-
 
 .pixel-room {
-
-    position:
-        relative;
-
-    height:
-        440px;
-
-    border:
-        4px solid var(--brown);
-
-    border-radius:
-        20px;
-
-    overflow:
-        hidden;
-
-    background:
-        linear-gradient(
-            #aaa0c8 0 65%,
-            #c98690 65%
-        );
-
-    box-shadow:
-        8px 8px 0 var(--shadow);
-
+    height: clamp(260px, 35vw, 380px);
 }
-
-
-.room-window {
-
-    position:
-        absolute;
-
-    top:
-        45px;
-
-    left:
-        50%;
-
-    transform:
-        translateX(-50%);
-
-    width:
-        210px;
-
-    height:
-        150px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    font-size:
-        70px;
-
-    background:
-        #7774a8;
-
-    border:
-        12px solid #f4e1d7;
-
-}
-
-
-.room-bed {
-
-    position:
-        absolute;
-
-    bottom:
-        35px;
-
-    left:
-        45px;
-
-    font-size:
-        110px;
-
-}
-
-
-.room-plant {
-
-    position:
-        absolute;
-
-    bottom:
-        25px;
-
-    right:
-        35px;
-
-    font-size:
-        60px;
-
-}
-
-
-.room-bear {
-
-    position:
-        absolute;
-
-    bottom:
-        35px;
-
-    right:
-        150px;
-
-    font-size:
-        60px;
-
-}
-
-
-.room-lamp {
-
-    position:
-        absolute;
-
-    top:
-        50px;
-
-    right:
-        35px;
-
-    font-size:
-        50px;
-
-}
-
 
 .welcome-text h1 {
-
-    font-size:
-        43px;
-
-    line-height:
-        1.25;
-
-    color:
-        var(--brown-dark);
-
-    margin:
-        12px 0 20px;
-
+    font-size: clamp(28px, 4vw, 40px);
 }
-
-
-.welcome-text p {
-
-    line-height:
-        2;
-
-    margin-bottom:
-        15px;
-
-}
-
-
-/* =====================================================
-   LITTLE THINGS
-===================================================== */
 
 .things-content {
-
-    min-height:
-        calc(100vh - 100px);
-
-    padding:
-        35px 50px;
-
+    padding: 30px 25px;
 }
-
-
-.center-heading {
-
-    text-align:
-        center;
-
-    margin:
-        20px auto 30px;
-
-}
-
-
-.center-heading h1 {
-
-    color:
-        var(--pink);
-
-    margin:
-        10px 0;
-
-    font-size:
-        34px;
-
-}
-
-
-.center-heading p {
-
-    line-height:
-        1.8;
-
-}
-
 
 .memory-grid {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:
-        15px;
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
 }
-
-
-.memory-card {
-
-    border:
-        2px solid var(--line);
-
-    background:
-        #fff5f7;
-
-    border-radius:
-        15px;
-
-    padding:
-        25px 12px;
-
-    cursor:
-        pointer;
-
-    color:
-        var(--brown);
-
-    box-shadow:
-        3px 3px 0 var(--pink-light);
-
-    transition:
-        .2s ease;
-
-}
-
-
-.memory-card:hover {
-
-    transform:
-        translateY(-6px);
-
-    background:
-        white;
-
-}
-
-
-.memory-icon {
-
-    display:
-        block;
-
-    font-size:
-        45px;
-
-    margin-bottom:
-        12px;
-
-}
-
-
-.memory-card strong,
-.memory-card small {
-
-    display:
-        block;
-
-}
-
-
-.memory-card small {
-
-    margin-top:
-        5px;
-
-    font-size:
-        11px;
-
-}
-
-
-.memory-message {
-
-    text-align:
-        center;
-
-    margin:
-        30px auto 0;
-
-    padding:
-        15px;
-
-    border:
-        1px dashed var(--pink);
-
-    border-radius:
-        12px;
-
-    background:
-        var(--pink-soft);
-
-}
-
-
-/* =====================================================
-   MUSIC APP
-===================================================== */
-
-.music-app {
-
-    width:
-        min(1300px,100%);
-
-    min-height:
-        calc(100vh - 50px);
-
-    margin:
-        auto;
-
-    position:
-        relative;
-
-    overflow:
-        hidden;
-
-    background:
-        var(--cream);
-
-    border:
-        3px solid var(--brown);
-
-    border-radius:
-        15px;
-
-    box-shadow:
-        9px 9px 0 var(--shadow);
-
-}
-
 
 .music-topbar {
-
-    height:
-        45px;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        70px 150px 1fr 150px;
-
-    align-items:
-        center;
-
-    gap:
-        10px;
-
-    padding:
-        0 15px;
-
-    background:
-        var(--pink-light);
-
-    border-bottom:
-        2px solid var(--brown);
-
+    grid-template-columns: 60px 130px minmax(0, 1fr);
+    gap: 8px;
+    padding: 0 12px;
 }
-
-
-.browser-tab {
-
-    background:
-        var(--cream);
-
-    padding:
-        7px 10px;
-
-    border-radius:
-        8px 8px 0 0;
-
-    font-size:
-        11px;
-
-}
-
-
-.address-bar {
-
-    background:
-        white;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:
-        20px;
-
-    padding:
-        6px 15px;
-
-    font-size:
-        10px;
-
-}
-
 
 .top-note {
-
-    font-size:
-        10px;
-
-    text-align:
-        right;
-
+    display: none;
 }
-
 
 .music-body {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        125px 1fr 320px;
-
-    min-height:
-        calc(100vh - 180px);
-
+    grid-template-columns: 85px minmax(0, 1fr);
 }
-
 
 .music-sidebar {
-
-    background:
-        #fff1f4;
-
-    border-right:
-        2px solid #e1b0bd;
-
-    padding:
-        25px 12px;
-
+    padding: 20px 8px;
 }
-
-
-.app-logo {
-
-    width:
-        50px;
-
-    height:
-        50px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    margin:
-        auto;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--pink-light);
-
-    font-size:
-        28px;
-
-}
-
-
-.app-name {
-
-    text-align:
-        center;
-
-    font-family:
-        "Silkscreen",
-        monospace;
-
-    font-size:
-        9px;
-
-    line-height:
-        1.6;
-
-    margin:
-        10px 0 25px;
-
-}
-
-
-.side-menu {
-
-    width:
-        100%;
-
-    border:
-        none;
-
-    background:
-        transparent;
-
-    color:
-        var(--brown);
-
-    text-align:
-        left;
-
-    padding:
-        12px 10px;
-
-    border-radius:
-        10px;
-
-    cursor:
-        pointer;
-
-    margin-bottom:
-        5px;
-
-}
-
-
-.side-menu:hover,
-.side-menu.active {
-
-    background:
-        #f8d2dd;
-
-}
-
-
-.sidebar-bottom {
-
-    margin-top:
-        40px;
-
-    text-align:
-        center;
-
-    font-size:
-        10px;
-
-    color:
-        #c98a9e;
-
-}
-
-
-/* MUSIC ROOM */
-
-.music-room {
-
-    position:
-        relative;
-
-    overflow:
-        hidden;
-
-    background:
-        linear-gradient(
-            #a59cc5 0 58%,
-            #a56e72 58%
-        );
-
-}
-
-
-.string-lights {
-
-    position:
-        absolute;
-
-    top:
-        10px;
-
-    width:
-        100%;
-
-    text-align:
-        center;
-
-    color:
-        #fff0ad;
-
-    font-size:
-        18px;
-
-}
-
-
-.room-window-player {
-
-    position:
-        absolute;
-
-    width:
-        48%;
-
-    height:
-        46%;
-
-    top:
-        16%;
-
-    left:
-        26%;
-
-    border:
-        10px solid #f1ddd3;
-
-    background:
-        linear-gradient(
-            #7774a8,
-            #d991a6
-        );
-
-}
-
-
-.player-moon {
-
-    text-align:
-        center;
-
-    margin-top:
-        15px;
-
-    font-size:
-        65px;
-
-    color:
-        #fff0ad;
-
-}
-
-
-.player-city {
-
-    position:
-        absolute;
-
-    bottom:
-        5px;
-
-    width:
-        100%;
-
-    text-align:
-        center;
-
-    color:
-        #64608b;
-
-    letter-spacing:
-        7px;
-
-}
-
-
-.music-quote {
-
-    position:
-        absolute;
-
-    left:
-        8%;
-
-    top:
-        18%;
-
-    color:
-        white;
-
-}
-
-
-.music-quote h1 {
-
-    margin:
-        8px 0;
-
-    font-size:
-        24px;
-
-}
-
-
-.music-quote p {
-
-    font-size:
-        12px;
-
-}
-
-
-.room-cat {
-
-    position:
-        absolute;
-
-    bottom:
-        17%;
-
-    left:
-        7%;
-
-    font-size:
-        85px;
-
-}
-
-
-.room-headphone {
-
-    position:
-        absolute;
-
-    bottom:
-        13%;
-
-    right:
-        35%;
-
-    font-size:
-        80px;
-
-}
-
-
-.room-cup {
-
-    position:
-        absolute;
-
-    right:
-        9%;
-
-    bottom:
-        17%;
-
-    font-size:
-        45px;
-
-}
-
-
-.room-books {
-
-    position:
-        absolute;
-
-    right:
-        5%;
-
-    bottom:
-        10%;
-
-    font-size:
-        45px;
-
-}
-
-
-/* PLAYLIST */
 
 .playlist-panel {
-
-    padding:
-        25px 18px;
-
-    background:
-        #fffaf7;
-
-    border-left:
-        2px solid #e1b0bd;
-
+    display: none;
 }
 
-
-.playlist-header {
-
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
+.music-room {
+    min-height: 400px;
 }
-
-
-.playlist-header h2 {
-
-    margin-top:
-        8px;
-
-}
-
-
-.playlist-category {
-
-    margin:
-        25px 0 10px;
-
-    font-size:
-        11px;
-
-    color:
-        var(--pink);
-
-}
-
-
-.playlist-item {
-
-    width:
-        100%;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        25px 45px 1fr;
-
-    align-items:
-        center;
-
-    gap:
-        10px;
-
-    border:
-        none;
-
-    border-radius:
-        10px;
-
-    background:
-        transparent;
-
-    text-align:
-        left;
-
-    padding:
-        10px;
-
-    cursor:
-        pointer;
-
-    color:
-        var(--brown);
-
-}
-
-
-.playlist-item:hover,
-.playlist-item.selected {
-
-    background:
-        var(--pink-soft);
-
-}
-
-
-.track-number {
-
-    font-size:
-        9px;
-
-    color:
-        #c28b9d;
-
-}
-
-
-.track-cover {
-
-    width:
-        42px;
-
-    height:
-        42px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    background:
-        var(--pink-light);
-
-    border-radius:
-        9px;
-
-    font-size:
-        22px;
-
-}
-
-
-.track-info strong,
-.track-info small {
-
-    display:
-        block;
-
-}
-
-
-.track-info strong {
-
-    font-size:
-        11px;
-
-}
-
-
-.track-info small {
-
-    font-size:
-        9px;
-
-    margin-top:
-        3px;
-
-}
-
-
-/* PLAYER BAR */
 
 .player-bar {
-
-    min-height:
-        95px;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        220px 210px 1fr 160px;
-
-    align-items:
-        center;
-
-    gap:
-        15px;
-
-    /* extra left space keeps the back button separate from Now Playing */
-    padding:
-        10px 20px 10px 135px;
-
-    background:
-        white;
-
-    border-top:
-        2px solid var(--line);
-
-    position:
-        relative;
-
+    grid-template-columns: minmax(130px, 1fr) auto minmax(120px, 1fr);
+    gap: 12px;
+    padding: 15px 18px 15px 110px;
 }
-
 
 .now-playing {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        10px;
-
+    min-width: 0;
 }
 
-
-.now-cover {
-
-    width:
-        55px;
-
-    height:
-        55px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        10px;
-
-    background:
-        var(--pink-light);
-
-    font-size:
-        28px;
-
+.now-info {
+    min-width: 0;
 }
-
 
 .now-info strong,
 .now-info small {
-
-    display:
-        block;
-
+    overflow-wrap: anywhere;
 }
-
-
-.now-info strong {
-
-    font-size:
-        12px;
-
-}
-
-
-.now-info small {
-
-    font-size:
-        9px;
-
-}
-
-
-.player-controls {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        8px;
-
-}
-
-
-.icon-btn,
-.control-btn,
-.play-btn {
-
-    border:
-        none;
-
-    background:
-        transparent;
-
-    cursor:
-        pointer;
-
-    color:
-        var(--brown);
-
-}
-
-
-.play-btn {
-
-    width:
-        40px;
-
-    height:
-        40px;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--pink);
-
-    color:
-        white;
-
-}
-
-
-.progress-area {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        8px;
-
-    font-size:
-        9px;
-
-}
-
-
-.progress-area input {
-
-    width:
-        100%;
-
-}
-
 
 .volume-control {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        7px;
-
-    font-size:
-        12px;
-
+    display: none;
 }
-
-
-.volume-control input {
-    width:
-        90px;
-}
-
-
-.music-back-btn {
-
-    position:
-        absolute;
-
-    left:
-        15px;
-
-    bottom:
-        15px;
-
-    z-index:
-        30;
-
-    border:
-        1px solid var(--line);
-
-    background:
-        #fffaf5;
-
-    color:
-        var(--brown);
-
-    border-radius:
-        999px;
-
-    padding:
-        8px 15px;
-
-    cursor:
-        pointer;
-
-    font-family:
-        inherit;
-
-    font-size:
-        13px;
-
-    font-weight:
-        600;
-
-    box-shadow:
-        0 2px 0 var(--shadow);
-
-    transition:
-        .2s ease;
-
-}
-
-.music-back-btn:hover {
-
-    background:
-        var(--pink-soft);
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 4px 0 var(--shadow);
-
-}
-
-.music-back-btn:active {
-
-    transform:
-        translateY(1px);
-
-    box-shadow:
-        0 1px 0 var(--shadow);
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-.message-page {
-
-    min-height:
-        calc(100vh - 100px);
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    text-align:
-        center;
-
-    padding:
-        35px 25px;
-
-}
-
-
-.message-page .back-btn {
-
-    align-self:
-        flex-start;
-
-}
-
-
-.letter {
-
-    position:
-        relative;
-
-    width:
-        min(600px,95%);
-
-    margin:
-        30px 0;
-
-    padding:
-        45px 50px;
-
-    background:
-        #fffdf9;
-
-    border:
-        2px solid #e3c8bc;
-
-    box-shadow:
-        5px 5px 0 #e7c0ca;
-
-    transform:
-        rotate(-1deg);
-
-}
-
-
-.letter::before {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    inset:
-        15px;
-
-    border:
-        1px dashed #e8b7c5;
-
-    pointer-events:
-        none;
-
-}
-
-
-.letter-stamp {
-
-    position:
-        absolute;
-
-    top:
-        25px;
-
-    right:
-        30px;
-
-    width:
-        45px;
-
-    height:
-        45px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border:
-        2px solid var(--pink);
-
-    border-radius:
-        50%;
-
-    color:
-        var(--pink);
-
-}
-
-
-.letter p {
-
-    position:
-        relative;
-
-    line-height:
-        2;
-
-    margin-bottom:
-        18px;
-
-}
-
-
-.letter-highlight {
-
-    color:
-        var(--pink);
-
-    font-weight:
-        700;
-
-}
-
-
-.letter-sign {
-
-    position:
-        relative;
-
-    text-align:
-        right;
-
-    margin-top:
-        25px;
-
-}
-
-
-/* =====================================================
-   ENCOURAGEMENT
-===================================================== */
-
-.encourage-page {
-
-    min-height:
-        calc(100vh - 100px);
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    text-align:
-        center;
-
-    padding:
-        30px 20px;
-
-}
-
-
-.encourage-page > .back-btn {
-
-    align-self:
-        flex-start;
-
-}
-
-
-.encourage-decoration {
-
-    color:
-        var(--pink);
-
-    font-size:
-        20px;
-
-    letter-spacing:
-        5px;
-
-    margin-bottom:
-        10px;
-
-}
-
-
-.encourage-page h1 {
-
-    margin:
-        8px 0 5px;
-
-    color:
-        var(--pink);
-
-    font-size:
-        32px;
-
-}
-
-
-.encourage-subtitle {
-
-    margin-bottom:
-        20px;
-
-}
-
-
-/* CATEGORY */
 
 .encourage-categories {
-
-    width:
-        min(850px,100%);
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:
-        9px;
-
-    margin-bottom:
-        20px;
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-
-.encourage-category {
-
-    min-height:
-        95px;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        3px;
-
-    border:
-        1px solid var(--line);
-
-    background:
-        #fff7f8;
-
-    border-radius:
-        13px;
-
-    color:
-        var(--brown);
-
-    cursor:
-        pointer;
-
-    transition:
-        .2s ease;
-
+.encourage-category:last-child {
+    grid-column: auto;
 }
 
-
-.encourage-category:hover {
-
-    transform:
-        translateY(-3px);
-
+.letter {
+    width: min(600px, 100%);
+    padding: 40px 35px;
 }
-
-
-.encourage-category.active {
-
-    background:
-        var(--pink-light);
-
-    border:
-        2px solid var(--pink);
-
-    box-shadow:
-        3px 3px 0 var(--shadow);
-
-}
-
-
-.encourage-category span {
-
-    font-size:
-        25px;
-
-}
-
-
-.encourage-category strong {
-
-    font-size:
-        11px;
-
-}
-
-
-.encourage-category small {
-
-    font-size:
-        8px;
-
-}
-
-
-/* MESSAGE */
 
 .encourage-card {
-
-    width:
-        min(700px,95%);
-
-    position:
-        relative;
-
-    padding:
-        35px 55px;
-
-    margin:
-        5px 0 20px;
-
-    background:
-        #fff9fb;
-
-    border:
-        2px solid var(--pink-light);
-
-    border-radius:
-        18px;
-
-    box-shadow:
-        4px 4px 0 var(--pink-light);
+    width: min(700px, 100%);
+    padding: 30px 40px;
+}
+```
 
 }
 
+/* =====================================================
+MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+```
+.page {
+    padding: 8px;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.retro-window,
+.music-app {
+    width: 100%;
+    min-height: calc(100vh - 16px);
+    min-height: calc(100dvh - 16px);
+    border-width: 2px;
+    border-radius: 13px;
+    box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.window-header {
+    height: 38px;
+    padding: 0 10px;
+}
+
+.window-title {
+    font-size: 9px;
+}
+
+.window-buttons {
+    font-size: 10px;
+}
+
+.back-btn,
+.back-button {
+    left: 10px;
+    top: 10px;
+    min-width: 74px;
+    height: 34px;
+    padding: 0 12px;
+    font-size: 12px;
+}
+
+.main-btn {
+    min-height: 44px;
+    padding: 12px 18px;
+    font-size: 14px;
+}
+
+.text-btn {
+    min-height: 42px;
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+/* Welcome */
+
+.welcome-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    padding: 25px 16px;
+    min-height: auto;
+}
+
+.pixel-room {
+    width: 100%;
+    height: clamp(220px, 65vw, 330px);
+    border-width: 3px;
+    border-radius: 15px;
+}
+
+.room-window {
+    width: 48%;
+    height: 36%;
+    top: 14%;
+    border-width: 7px;
+    font-size: clamp(35px, 10vw, 60px);
+}
+
+.room-bed {
+    left: 5%;
+    bottom: 8%;
+    font-size: clamp(55px, 16vw, 90px);
+}
+
+.room-plant {
+    right: 5%;
+    bottom: 5%;
+    font-size: clamp(35px, 10vw, 55px);
+}
+
+.room-bear {
+    right: 30%;
+    bottom: 7%;
+    font-size: clamp(35px, 10vw, 55px);
+}
+
+.room-lamp {
+    right: 5%;
+    top: 8%;
+    font-size: clamp(30px, 8vw, 45px);
+}
+
+.welcome-text {
+    text-align: center;
+}
+
+.welcome-text h1 {
+    font-size: clamp(25px, 7vw, 34px);
+    line-height: 1.4;
+}
+
+.welcome-text p {
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Lock screen */
+
+.lock-background {
+    min-height: calc(100vh - 16px);
+    min-height: calc(100dvh - 16px);
+    padding: 20px 12px;
+    border-radius: 12px;
+}
+
+.lock-card {
+    width: 100%;
+    max-width: 390px;
+    padding: 28px 18px;
+    border-width: 2px;
+    border-radius: 16px;
+    box-shadow: 5px 5px 0 var(--shadow);
+}
+
+.lock-card h1 {
+    font-size: clamp(20px, 6vw, 26px);
+    line-height: 1.5;
+}
+
+.lock-description {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.keypad {
+    width: min(100%, 250px);
+    gap: 10px;
+}
+
+.keypad button {
+    min-height: 58px;
+    font-size: 20px;
+}
+
+/* Little things / memory cards */
+
+.things-content {
+    padding: 25px 14px;
+}
+
+.center-heading {
+    margin: 25px auto 22px;
+}
+
+.center-heading h1 {
+    font-size: clamp(23px, 6vw, 30px);
+    line-height: 1.5;
+}
+
+.center-heading p {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.memory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.memory-card {
+    min-width: 0;
+    padding: 20px 8px;
+    border-radius: 12px;
+}
+
+.memory-icon {
+    font-size: 34px;
+}
+
+.memory-card strong {
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.memory-card small {
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.memory-message {
+    font-size: 13px;
+    line-height: 1.8;
+    padding: 13px 10px;
+}
+
+/* Music app */
+
+.music-topbar {
+    height: 42px;
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 8px;
+    padding: 0 9px;
+}
+
+.browser-tab {
+    padding: 7px 5px;
+    font-size: 9px;
+    text-align: center;
+}
+
+.address-bar,
+.top-note {
+    display: none;
+}
+
+.music-body {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+}
+
+.music-sidebar,
+.playlist-panel {
+    display: none;
+}
+
+.music-room {
+    width: 100%;
+    min-height: clamp(300px, 90vw, 470px);
+}
+
+.music-quote {
+    left: 6%;
+    right: 6%;
+    top: 15%;
+}
+
+.music-quote h1 {
+    font-size: clamp(18px, 5vw, 25px);
+    line-height: 1.5;
+}
+
+.music-quote p {
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.room-window-player {
+    width: 54%;
+    height: 40%;
+    left: 23%;
+    top: 22%;
+    border-width: 7px;
+}
+
+.player-moon {
+    margin-top: 10px;
+    font-size: clamp(35px, 12vw, 60px);
+}
+
+.player-city {
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+.room-cat {
+    left: 5%;
+    bottom: 12%;
+    font-size: clamp(48px, 15vw, 75px);
+}
+
+.room-headphone {
+    right: 32%;
+    bottom: 9%;
+    font-size: clamp(45px, 13vw, 70px);
+}
+
+.room-cup {
+    right: 7%;
+    bottom: 13%;
+    font-size: 35px;
+}
+
+.room-books {
+    right: 4%;
+    bottom: 7%;
+    font-size: 34px;
+}
+
+.player-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 15px 12px;
+    min-height: auto;
+}
+
+.now-playing {
+    justify-content: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.now-cover {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+}
+
+.now-info {
+    min-width: 0;
+    max-width: 70%;
+}
+
+.now-info strong {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.now-info small {
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.player-controls {
+    justify-content: center;
+    gap: 18px;
+}
+
+.icon-btn,
+.control-btn {
+    min-width: 38px;
+    min-height: 38px;
+    font-size: 18px;
+}
+
+.play-btn {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+}
+
+.progress-area {
+    order: 0;
+    width: 100%;
+    gap: 8px;
+    font-size: 10px;
+}
+
+.progress-area input {
+    min-width: 0;
+}
+
+.volume-control {
+    display: none;
+}
+
+.music-back-btn {
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    align-self: flex-start;
+    margin: 10px;
+    min-height: 38px;
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+/* Letter page */
+
+.message-page {
+    min-height: auto;
+    padding: 55px 14px 25px;
+}
+
+.letter {
+    width: 100%;
+    margin: 20px 0;
+    padding: 40px 22px 30px;
+    transform: rotate(-0.4deg);
+}
+
+.letter p {
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+.letter-stamp {
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+}
+
+/* Encouragement */
+
+.encourage-page {
+    min-height: auto;
+    padding: 55px 14px 25px;
+}
+
+.encourage-page h1 {
+    font-size: clamp(23px, 6vw, 30px);
+    line-height: 1.5;
+}
+
+.encourage-subtitle {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.encourage-categories {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.encourage-category {
+    min-width: 0;
+    min-height: 90px;
+    padding: 10px 5px;
+}
+
+.encourage-category:last-child {
+    grid-column: 1 / -1;
+}
+
+.encourage-category strong {
+    font-size: 11px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.encourage-category small {
+    font-size: 9px;
+}
+
+.encourage-card {
+    width: 100%;
+    padding: 30px 25px;
+    margin: 5px 0 18px;
+}
 
 .encourage-card p {
-
-    font-size:
-        16px;
-
-    line-height:
-        2;
-
-    transition:
-        .3s ease;
-
+    font-size: 14px;
+    line-height: 1.9;
 }
-
 
 .quote-mark {
-
-    position:
-        absolute;
-
-    left:
-        20px;
-
-    top:
-        5px;
-
-    font-size:
-        50px;
-
-    color:
-        var(--pink);
-
+    left: 10px;
+    font-size: 38px;
 }
-
 
 .quote-mark.right {
-
-    left:
-        auto;
-
-    right:
-        20px;
-
-    top:
-        auto;
-
-    bottom:
-        -15px;
-
+    right: 10px;
 }
-
-
-/* HUG */
 
 .hug-area {
-
-    margin:
-        25px 0;
-
-    padding:
-        25px 35px;
-
-    border-radius:
-        18px;
-
-    background:
-        #fff1f5;
-
+    width: 100%;
+    padding: 22px 14px;
 }
-
 
 .hug-character {
-
-    font-size:
-        65px;
-
-    animation:
-        bearBounce 2s ease-in-out infinite;
-
+    font-size: 55px;
 }
-
-
-@keyframes bearBounce {
-
-    50% {
-        transform:
-            translateY(-7px);
-    }
-
-}
-
 
 .hug-area h2 {
-
-    color:
-        var(--pink);
-
-    margin:
-        5px 0;
-
+    font-size: 20px;
+    line-height: 1.5;
 }
-
 
 .hug-area p {
-
-    margin-bottom:
-        12px;
-
+    font-size: 13px;
+    line-height: 1.8;
 }
 
-
-.hug-btn {
-
-    border:
-        2px solid var(--brown);
-
-    background:
-        var(--pink);
-
-    color:
-        white;
-
-    padding:
-        12px 25px;
-
-    border-radius:
-        999px;
-
-    cursor:
-        pointer;
-
-    font-weight:
-        700;
-
-    box-shadow:
-        3px 3px 0 var(--brown);
-
-    transition:
-        .2s;
-
-}
-
-
-.hug-btn:hover {
-
-    transform:
-        translateY(-3px);
-
-}
-
-
-.hug-btn.sent {
-
-    background:
-        #d98aa4;
-
-}
-
-
-.hug-status {
-
-    min-height:
-        22px;
-
-    color:
-        var(--pink);
-
-    font-size:
-        12px;
-
-}
-
-
-/* =====================================================
-   FINAL
-===================================================== */
+/* Final page */
 
 .final-page {
-
-    min-height:
-        calc(100vh - 100px);
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    text-align:
-        center;
-
-    padding:
-        30px;
-
+    min-height: calc(100vh - 16px);
+    min-height: calc(100dvh - 16px);
+    padding: 55px 16px 25px;
 }
-
-
-.final-page > .back-btn {
-
-    align-self:
-        flex-start;
-
-}
-
 
 .gift {
-
-    font-size:
-        100px;
-
-    margin:
-        30px;
-
-    cursor:
-        pointer;
-
-    animation:
-        giftFloat 2s ease-in-out infinite;
-
+    font-size: clamp(65px, 20vw, 90px);
+    margin: 20px 0;
 }
-
-
-@keyframes giftFloat {
-
-    50% {
-        transform:
-            translateY(-12px)
-            rotate(3deg);
-    }
-
-}
-
 
 .final-page h1 {
-
-    color:
-        var(--pink);
-
-    margin-bottom:
-        10px;
-
+    font-size: clamp(24px, 7vw, 32px);
+    line-height: 1.5;
 }
-
 
 .final-message {
-
-    width:
-        min(550px,95%);
-
-    margin-top:
-        20px;
-
-    padding:
-        30px;
-
-    border:
-        2px solid var(--pink-light);
-
-    border-radius:
-        18px;
-
-    background:
-        #fff8fa;
-
-    animation:
-        pageIn .5s ease;
-
+    width: 100%;
+    padding: 25px 18px;
 }
-
-
-.final-message.hidden {
-    display:
-        none;
-}
-
-
-.final-heart {
-
-    font-size:
-        50px;
-
-}
-
 
 .final-message h2 {
-
-    color:
-        var(--pink);
-
-    margin:
-        10px 0;
-
+    font-size: 20px;
+    line-height: 1.5;
 }
-
 
 .final-message p {
-
-    line-height:
-        2;
-
-    margin:
-        12px 0;
+    font-size: 14px;
+    line-height: 1.9;
+}
+```
 
 }
-
-
-.signature {
-
-    color:
-        var(--pink);
-
-}
-
 
 /* =====================================================
-   RESPONSIVE
+SMALL MOBILE
 ===================================================== */
 
-@media(max-width:950px) {
+@media (max-width: 380px) {
 
-    .welcome-content {
+```
+.page {
+    padding: 5px;
+}
 
-        grid-template-columns:
-            1fr;
+.retro-window,
+.music-app {
+    min-height: calc(100vh - 10px);
+    min-height: calc(100dvh - 10px);
+}
 
-        padding:
-            30px;
+.welcome-content {
+    padding: 20px 10px;
+}
 
-    }
+.welcome-text h1 {
+    font-size: 25px;
+}
 
+.memory-grid {
+    gap: 7px;
+}
 
-    .pixel-room {
+.memory-card {
+    padding: 16px 5px;
+}
 
-        height:
-            300px;
+.memory-card strong {
+    font-size: 10px;
+}
 
-    }
+.letter {
+    padding: 38px 17px 25px;
+}
 
+.encourage-card {
+    padding: 28px 20px;
+}
 
-    .welcome-text {
-
-        text-align:
-            center;
-
-    }
-
-
-    .memory-grid {
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-
-    .music-body {
-
-        grid-template-columns:
-            90px 1fr;
-
-    }
-
-
-    .playlist-panel {
-
-        display:
-            none;
-
-    }
-
-
-    .player-bar {
-
-        grid-template-columns:
-            180px 180px 1fr;
-
-        padding:
-            10px 20px 10px 135px;
-
-    }
-
-
-    .volume-control {
-
-        display:
-            none;
-
-    }
+.player-controls {
+    gap: 10px;
+}
+```
 
 }
 
-
-@media(max-width:650px) {
-
-    .page {
-        padding:
-            10px;
-    }
-
-
-    .retro-window,
-    .music-app {
-
-        min-height:
-            calc(100vh - 20px);
-
-    }
-
-
-    .welcome-content,
-    .things-content {
-
-        padding:
-            25px 15px;
-
-    }
-
-
-    .memory-grid {
-
-        grid-template-columns:
-            1fr 1fr;
-
-    }
-
-
-    .music-sidebar {
-
-        display:
-            none;
-
-    }
-
-
-    .music-body {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .music-topbar {
-
-        grid-template-columns:
-            60px 1fr;
-
-    }
-
-
-    .address-bar,
-    .top-note {
-
-        display:
-            none;
-
-    }
-
-
-    .music-quote {
-
-        left:
-            7%;
-
-        top:
-            15%;
-
-    }
-
-
-    .room-window-player {
-
-        width:
-            55%;
-
-        left:
-            23%;
-
-    }
-
-
-    .player-bar {
-
-        grid-template-columns:
-            1fr;
-
-        gap:
-            8px;
-
-        padding:
-            10px;
-
-    }
-
-
-    .now-playing {
-
-        justify-content:
-            center;
-
-    }
-
-
-    .progress-area {
-
-        order:
-            3;
-
-    }
-
-
-    .music-back-btn {
-
-        position:
-            absolute;
-
-        left:
-            10px;
-
-        top:
-            58px;
-
-        bottom:
-            auto;
-
-        margin:
-            0;
-
-        z-index:
-            40;
-
-    }
-
-
-    .encourage-categories {
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-
-    .encourage-category:last-child {
-
-        grid-column:
-            1 / -1;
-
-    }
-
-
-    .encourage-card {
-
-        padding:
-            30px 35px;
-
-    }
-
-
-    .letter {
-
-        padding:
-            35px 25px;
-
-    }
+/* =====================================================
+LANDSCAPE PHONE
+===================================================== */
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+```
+.lock-background {
+    padding: 20px;
+}
+
+.lock-card {
+    max-width: 520px;
+    padding: 20px;
+}
+
+.welcome-content {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 18px;
+    padding: 25px;
+}
+
+.pixel-room {
+    height: 250px;
+}
+
+.music-room {
+    min-height: 300px;
+}
+```
 
 }
 
+/* =====================================================
+ACCESSIBILITY
+===================================================== */
 
-@media(max-width:450px) {
+@media (prefers-reduced-motion: reduce) {
 
-    .lock-card {
-
-        padding:
-            30px 15px;
-
-    }
-
-
-    .lock-card h1 {
-
-        font-size:
-            21px;
-
-    }
-
-
-    .welcome-text h1 {
-
-        font-size:
-            30px;
-
-    }
-
-
-    .memory-grid {
-
-        gap:
-            8px;
-
-    }
-
-
-    .memory-card {
-
-        padding:
-            18px 5px;
-
-    }
-
-
-    .memory-icon {
-
-        font-size:
-            32px;
-
-    }
-
-
-    .memory-card strong {
-
-        font-size:
-            10px;
-
-    }
-
-
-    .encourage-page h1 {
-
-        font-size:
-            25px;
-
-    }
-
-
-    .encourage-categories {
-
-        gap:
-            7px;
-
-    }
-
-
-    .encourage-category {
-
-        min-height:
-            85px;
-
-    }
-
-
-    .encourage-card p {
-
-        font-size:
-            13px;
-
-    }
+```
+*,
+*::before,
+*::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+```
 
 }
