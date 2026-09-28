@@ -545,9 +545,65 @@
             </aside>
 
 
-            <!-- CENTER MUSIC ROOM -->
+            <!-- CENTER MUSIC ROOM / HOME -->
 
             <main class="music-room">
+
+                <!-- HOME : OUR LITTLE WORLD -->
+                <section class="home-room" id="homeRoom">
+
+                    <div class="home-room-sky">
+                        <span class="home-star s1">✦</span>
+                        <span class="home-star s2">✦</span>
+                        <span class="home-star s3">·</span>
+                        <span class="home-star s4">✦</span>
+                    </div>
+
+                    <div class="home-window">
+                        <div class="home-curtain left"></div>
+                        <div class="home-window-glow"></div>
+                        <div class="home-moon">☾</div>
+                        <div class="home-city">▂ ▄ ▆ ▂ ▅ ▃ ▆ ▂ ▄</div>
+                    </div>
+
+                    <div class="home-title">
+                        <small>WELCOME HOME ♡</small>
+                        <h1>OUR LITTLE<br>WORLD</h1>
+                        <p>พื้นที่เล็ก ๆ ที่ทำไว้ให้เธอ</p>
+                    </div>
+
+                    <div class="pixel-object bear" data-home-note="ถ้าเหนื่อยก็พักก่อนนะ 🧸 ไม่ต้องเก่งตลอดเวลาก็ได้">🧸</div>
+                    <div class="pixel-object cup" data-home-note="Coffee break ☕ วันนี้พักสักหน่อยนะ">☕</div>
+                    <div class="pixel-object flower" data-home-note="ดอกไม้วันนี้ให้เธอ 🌷 เห็นแล้วอย่าลืมยิ้มนะ">🌷</div>
+                    <div class="pixel-object cat" data-home-note="🐈 เหมียว~ วันนี้ก็แวะมาหาเธอแล้วนะ">🐈</div>
+                    <div class="pixel-object plant" data-home-note="🪴 ค่อย ๆ โตไปทีละนิดก็พอ ไม่ต้องรีบ">🪴</div>
+
+                    <div class="home-sofa">
+                        <span class="sofa-pillow">♡</span>
+                        <span class="sofa-seat"></span>
+                    </div>
+
+                    <button class="home-note-card" id="homeNoteCard" type="button">
+                        <span class="note-pin">●</span>
+                        <small>LITTLE NOTE</small>
+                        <strong>อยู่ตรงนี้นะ ♡</strong>
+                        <em>click me</em>
+                    </button>
+
+                    <div class="home-clock" id="homeClock">00:00</div>
+                    <div class="home-status">♡ little world is open</div>
+
+                    <div class="home-toast" id="homeToast">
+                        <span>♡</span>
+                        <p>เลือกของในห้องสักชิ้นสิ</p>
+                    </div>
+
+                    <div class="home-footer">made especially for you ♡</div>
+
+                </section>
+
+                <!-- PLAYLIST / MUSIC ROOM -->
+                <section class="playlist-room" id="playlistRoom">
 
                 <div class="string-lights">
                     ✦　●　✦　●　✦　●　✦
@@ -602,6 +658,8 @@
                     📚
                 </div>
 
+                </section>
+
             </main>
 
 
@@ -649,11 +707,11 @@
         <span class="track-info">
 
             <strong>
-                อะไรอ่ะสวยกว่า...ทะเล
+                เธอเก่งที่สุดในโลกเลย
             </strong>
 
             <small>
-                WHATFALSE
+                imnutt
             </small>
 
         </span>
@@ -679,11 +737,11 @@
         <span class="track-info">
 
             <strong>
-                ถ้าโลกไม่ใจดี
+                สับสนวุ่นวาย
             </strong>
 
             <small>
-                ARMOR
+                Whal & Dolph Ft. SCRUBB
             </small>
 
         </span>
@@ -709,11 +767,11 @@
         <span class="track-info">
 
             <strong>
-                เธอคือสิ่งที่สวยงาม
+                ข้างกาย
             </strong>
 
             <small>
-                Miss Uni
+                Safeplanet
             </small>
 
         </span>
@@ -739,11 +797,11 @@
         <span class="track-info">
 
             <strong>
-                เธอเก่งที่สุดแล้ว
+                Bloom
             </strong>
 
             <small>
-                PORZAX
+                fellow fellow feat. Aheye 4EVE
             </small>
 
         </span>
@@ -769,11 +827,11 @@
         <span class="track-info">
 
             <strong>
-                1-100
+                ชาร์จแบต
             </strong>
 
             <small>
-                1-100
+                JixGo
             </small>
 
         </span>
@@ -912,8 +970,9 @@
     class="page"
 >
 
-    <div class="retro-window">
+    <div class="retro-window message-window">
 
+        <!-- WINDOW HEADER -->
         <div class="window-header">
 
             <div class="window-controls">
@@ -923,7 +982,7 @@
             </div>
 
             <div class="window-title">
-                💌 message.exe
+                💬 message.exe
             </div>
 
             <div class="window-buttons">
@@ -933,76 +992,200 @@
         </div>
 
 
+        <!-- MESSAGE CONTENT -->
         <div class="message-page">
 
+
+            <!-- BACK -->
             <button
-                class="back-btn"
+                class="back-btn message-back"
                 data-back
             >
                 ← กลับ
             </button>
 
 
-            <span class="eyebrow">
-                A LITTLE MESSAGE
-            </span>
+            <!-- CHAT WINDOW -->
+            <div class="chat-window">
 
 
-            <div class="letter">
+                <!-- CHAT HEADER -->
+                <div class="chat-header">
 
-                <div class="letter-stamp">
-                    ♡
+                    <div class="chat-profile">
+
+                        <div class="chat-avatar">
+                            ♡
+                        </div>
+
+                        <div class="chat-profile-info">
+
+                            <strong>
+                                ถึงเธอ ♡
+                            </strong>
+
+                            <small>
+                                my favorite person
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chat-status">
+                        ● online
+                    </div>
+
                 </div>
 
-                <div class="letter-line"></div>
 
-                <p>
-                    จริง ๆ แล้ว
-                    <br>
-                    ไม่มีอะไรพิเศษมากหรอก
-                </p>
+                <!-- CHAT BODY -->
+                <div
+                    class="chat-body"
+                    id="messageChat"
+                >
 
-                <p>
-                    แค่อยากทำอะไรเล็ก ๆ
-                    <br>
-                    ให้เธอได้เปิดดู
-                </p>
 
-                <p>
-                    ในวันที่เหนื่อย
-                    <br>
-                    หรือวันที่อยากยิ้ม
-                </p>
+                    <!-- DATE -->
+                    <div class="chat-date">
+                        today ♡
+                    </div>
 
-                <p class="letter-highlight">
-                    หวังว่าจะชอบนะ ♡
-                </p>
 
-                <p>
-                    เค้าคิดถึงเธอน้า
-                </p>
+                    <!-- MESSAGE 01 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="500"
+                    >
+                        ช่วงนี้ตั้งใจสอบนะ
+                    </div>
 
-                <div class="letter-sign">
-                    — จากเค้า 
+
+                    <!-- MESSAGE 02 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="1300"
+                    >
+                        อ่านหนังสือเหนื่อย ๆ
+                        ก็พักบ้างนะค้าบ
+                    </div>
+
+                    <!-- MESSAGE 03 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="1300"
+                    >
+                        อย่าลืมดูแลตัวเองด้วย
+                    </div>
+
+
+                    <!-- MESSAGE 04 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="2200"
+                    >
+                        ทำให้เต็มที่เท่าที่เธอทำได้ก็พอ
+                    </div>
+
+
+                    <!-- MESSAGE 05 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="3100"
+                    >
+                        ขอให้ทุกอย่างที่เธอตั้งใจ
+                        ออกมาดีอย่างที่หวังนะ
+                    </div>
+
+
+                    <!-- MESSAGE 06 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="4100"
+                    >
+                        แล้วก็อยากให้รู้ไว้นะ
+                    </div>
+
+
+                    <!-- MESSAGE 07 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble message-special"
+                        data-delay="5000"
+                    >
+                        ถึงช่วงนี้เธอจะต้องโฟกัสกับเรื่องเรียน
+                        แต่เธอยังมีเราอยู่ตรงนี้เสมอ ♡
+                    </div>
+
+
+                    <!-- MESSAGE 08 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble"
+                        data-delay="6200"
+                    >
+                        คอยเป็นกำลังใจให้
+                        คอยเอาใจช่วยอยู่ข้าง ๆ ตรงนี้
+                    </div>
+
+
+                    <!-- MESSAGE 09 -->
+                    <div
+                        class="chat-bubble bubble-right hidden-bubble message-final"
+                        data-delay="7500"
+                    >
+                        เก่งที่สุดแล้วนะ ♡
+                        <br>
+                        เธอทำได้
+                    </div>
+
+
+                    <!-- TYPING / DELIVERED -->
+                    <div
+                        class="chat-typing"
+                        id="typing"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+
                 </div>
+
+
+                <!-- CHAT FOOTER -->
+                <div class="chat-footer">
+
+                    <div class="chat-input-fake">
+                        <span>
+                            ส่งกำลังใจให้เธอ ♡
+                        </span>
+
+                        <span class="send-heart">
+                            ♡
+                        </span>
+                    </div>
+
+                </div>
+
 
             </div>
 
 
+            <!-- NEXT -->
             <button
-                class="main-btn"
+                class="main-btn message-next"
                 data-go="encouragePage"
             >
-                มีอีกอย่างนะ → 🌷
+                มีอีกอย่างอยากบอก → 🌷
             </button>
+
 
         </div>
 
     </div>
 
 </section>
-
-
 
 <!-- =====================================================
      PAGE 06 : ENCOURAGEMENT
@@ -1183,45 +1366,142 @@
             </button>
 
 
-            <!-- HUG -->
+            <!-- HUG BUTTON -->
+<div class="hug-entry-card">
 
-            <div class="hug-area">
+    <div class="hug-entry-icon">
+        🤗
+    </div>
 
-                <div class="hug-character">
-                    🧸
-                </div>
+    <h2>
+        ถ้าเหนื่อย
+    </h2>
 
-                <h2>
-                    ถ้าเหนื่อย
-                </h2>
+    <p>
+        มาขอกอดตรงนี้ได้นะ ♡
+    </p>
 
-                <p>
-                    เธอมาขอกอดเค้าได้นะ ♡
-                </p>
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="button-row">
+
+    <button
+        class="main-btn"
+        data-go="hugPage"
+    >
+        🤗 กอดหน่อย
+    </button>
+
+    <button
+        class="main-btn"
+        data-go="finalPage"
+    >
+        ไปต่อ 🎁
+    </button>
+
+</div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     PAGE 07 : HUG
+===================================================== -->
+
+<section id="hugPage" class="page">
+
+    <div class="retro-window hug-window">
+
+        <div class="window-header">
+
+            <div class="window-controls">
+                <span>●</span>
+                <span>●</span>
+                <span>●</span>
+            </div>
+
+            <div class="window-title">
+                🤗 HUG.EXE
+            </div>
+
+            <div class="window-buttons">
+                − □ ×
+            </div>
+
+        </div>
 
 
-                <button
-                    id="hugBtn"
-                    class="hug-btn"
+        <div class="hug-content">
+
+            <button
+                class="back-btn"
+                data-back
+            >
+                ← กลับ
+            </button>
+
+
+            <div class="hug-decoration">
+                ✦　♡　🎀　♡　✦
+            </div>
+
+
+            <span class="hug-eyebrow">
+                A LITTLE HUG FOR YOU
+            </span>
+
+
+            <h2 class="hug-title">
+                มาขอกอดกันไหม ♡
+            </h2>
+
+
+            <p class="hug-subtitle">
+                ถ้าเหนื่อยก็รับกอดนี้ไปนะ
+            </p>
+
+
+            <!-- GIF จาก GIPHY -->
+
+            <div id="hugImage">
+
+                <img
+                    id="hugGif"
+                    class="hug-gif"
+                    src=""
+                    alt="Cute hug"
                 >
-                    🤗 กอดหน่อย
-                </button>
-
-
-                <p
-                    id="hugStatus"
-                    class="hug-status"
-                ></p>
 
             </div>
 
 
+            <div class="giphy-credit">
+                Powered by GIPHY
+            </div>
+
+
+            <p id="hugMessage">
+                กำลังหากอดให้เธอ... ♡
+            </p>
+
+
+            <!-- มีปุ่มเดียว -->
+
             <button
-                class="main-btn"
-                data-go="finalPage"
+                id="hugBtn"
+                class="hug-btn"
+                type="button"
             >
-                ไปต่อ 🎁
+                🤗 กอด
             </button>
+
+
+            <p
+                id="hugStatus"
+                class="hug-status"
+            ></p>
 
         </div>
 
@@ -1229,10 +1509,8 @@
 
 </section>
 
-
-
 <!-- =====================================================
-     PAGE 07 : FINAL
+     PAGE 08 : HIDDEN PICTURE PUZZLE
 ===================================================== -->
 
 <section
@@ -1251,7 +1529,7 @@
             </div>
 
             <div class="window-title">
-                🎁 surprise.exe
+                🧩 puzzle.exe
             </div>
 
             <div class="window-buttons">
@@ -1261,7 +1539,7 @@
         </div>
 
 
-        <div class="final-page">
+        <div class="final-page puzzle-page">
 
             <button
                 class="back-btn"
@@ -1272,71 +1550,48 @@
 
 
             <span class="eyebrow">
-                ONE LAST THING...
+                ONE LAST GAME...
             </span>
 
 
-            <div
-                id="gift"
-                class="gift"
-            >
-                🎁
-            </div>
-
-
-            <h1 id="finalTitle">
-                มีอะไรมากกว่านี้ให้ด้วยนะ ♡
+            <h1 class="puzzle-title">
+                รูปอะไรน้า 💗
             </h1>
 
 
-            <p id="finalText">
-                กดเปิดดูสิ
+            <p class="puzzle-subtitle">
+                ต่อให้เสร็จแล้วจะรู้เอง 👀
             </p>
 
 
-            <button
-                id="openGift"
-                class="main-btn"
-            >
-                เปิดดูสิ ♡
-            </button>
+            <!-- ==============================
+                 PUZZLE
+            ============================== -->
+
+            <div class="puzzle-board-wrap">
+
+                <div
+                    id="puzzleBoard"
+                    class="puzzle-board"
+                ></div>
+
+            </div>
 
 
-            <div
-                id="finalMessage"
-                class="final-message hidden"
-            >
+            <p class="puzzle-hint">
+                ตัวเลขจะช่วยบอกว่าชิ้นไหนต้องอยู่ตรงไหน ♡
+                <br>
+                คลิก 2 ชิ้นเพื่อสลับตำแหน่ง
+            </p>
 
-                <div class="final-heart">
-                    💗
-                </div>
 
-                <h2>
-                    จริง ๆ แล้ว
-                </h2>
-
-                <p>
-                    เว็บนี้ตั้งใจทำให้เธอนะ
-                </p>
-
-                <p>
-                    ไม่รู้ว่าเธอจะคิดยังไง
-                    <br>
-                    แต่อยากให้เธอยิ้ม
-                    <br>
-                    ตอนเปิดเว็บนี้ก็พอ ♡
-                </p>
-
-                <p class="signature">
-                    — จากเค้า 🎀
-                </p>
-
+            <div class="puzzle-controls">
 
                 <button
-                    class="main-btn"
-                    data-go="playerPage"
+                    id="puzzleShuffle"
+                    class="puzzle-btn secondary"
                 >
-                    ♡ PLAY AGAIN
+                    🔀 สับใหม่
                 </button>
 
             </div>
@@ -1345,9 +1600,117 @@
 
     </div>
 
+
+    <!-- ==============================
+         WIN MODAL
+    ============================== -->
+
+    <div
+        id="puzzleWinModal"
+        class="puzzle-modal"
+    >
+
+        <div class="puzzle-modal-box">
+
+            <div class="puzzle-modal-heart">
+                💖
+            </div>
+
+
+            <h2>
+                เก่งที่สุดเลย! 🎉
+            </h2>
+
+
+            <p>
+                ต่อเสร็จแล้วด้วย
+                <br>
+                ไหนดูสิว่าเป็นรูปอะไร... 👀
+            </p>
+
+
+            <!-- รูปจริงจะค่อย ๆ เผยตรงนี้ -->
+
+            <div class="puzzle-reveal">
+
+                <div
+                    id="puzzleRevealImage"
+                    class="puzzle-reveal-image"
+                ></div>
+
+            </div>
+
+
+            <p class="puzzle-reveal-text">
+                ♡ รูปนี้ตั้งใจเลือกมาให้เธอเลย ♡
+            </p>
+
+
+            <button
+                id="puzzleCloseModal"
+                class="main-btn"
+            >
+                ไปต่อกัน ♡
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         FINAL MESSAGE
+    ============================== -->
+
+    <div
+        id="puzzleFinalMessage"
+        class="puzzle-final-message"
+    >
+
+        <div class="puzzle-final-heart">
+            💗
+        </div>
+
+
+        <span class="eyebrow">
+            ONE LAST THING...
+        </span>
+
+
+        <h2>
+            จริง ๆ แล้ว...
+        </h2>
+
+
+        <p>
+            เว็บนี้ตั้งใจทำให้เธอนะ
+        </p>
+
+
+        <p>
+            ไม่รู้ว่าเธอจะคิดยังไง
+            <br>
+            แต่อยากให้เธอยิ้ม
+            <br>
+            ตอนเปิดเว็บนี้ก็พอ ♡
+        </p>
+
+
+        <p class="puzzle-final-signature">
+            — จากเค้า 🎀
+        </p>
+
+
+        <button
+            class="main-btn"
+            data-go="playerPage"
+        >
+            ♡ PLAY AGAIN
+        </button>
+
+    </div>
+
 </section>
-
-
 
 <!-- =====================================================
      AUDIO
