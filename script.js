@@ -486,37 +486,37 @@ document
 const songs = [
 
     {
-        title: "อะไรอ่ะสวยกว่า...ทะเล",
-        artist: "WHATFALSE",
+        title: "เธอเก่งที่สุดในโลกเลย",
+        artist: "imnutt",
         file: "music/song1.mp3",
         cover: "🌊"
     },
 
     {
-        title: "ถ้าโลกไม่ใจดี",
-        artist: "ARMOR",
+        title: " สับสนวุ่นวาย",
+        artist: "Whal & Dolph Ft. SCRUBB",
         file: "music/song2.mp3",
         cover: "🫶"
     },
 
     {
-        title: "เธอคือสิ่งที่สวยงาม",
-        artist: "Miss Uni",
+        title: "ข้างกาย",
+        artist: "Safeplanet",
         file: "music/song3.mp3",
         cover: "💗"
     },
 
     {
-        title: "เธอเก่งที่สุดแล้ว",
-        artist: "PORZAX",
+        title: "Bloom",
+        artist: "fellow fellow feat. Aheye 4EVE",
         file: "music/song4.mp3",
         cover: "🌷"
     },
     
 
     {
-        title: "1-100",
-        artist: "1-100",
+        title: "ชาร์จแบต",
+        artist: "JixGo",
         file: "music/song5.mp3",
         cover: "💌"
     }
@@ -708,11 +708,11 @@ function loadSong(index) {
             ".playlist-item"
         )
         .forEach(
-            (item, itemIndex) => {
+            item => {
 
                 item.classList.toggle(
                     "selected",
-                    itemIndex ===
+                    Number(item.dataset.index) ===
                     currentSong
                 );
 
@@ -1666,159 +1666,1085 @@ if (encourageText) {
 
 
 /* =====================================================
-   TELEGRAM HUG
+   GIPHY HUG + TELEGRAM
 ===================================================== */
 
-/*
-    IMPORTANT
-
-    Telegram Bot Token
-    ต้องอยู่ใน Google Apps Script
-
-    ห้ามใส่ Bot Token
-    ในไฟล์ JavaScript นี้
-*/
-
+const GIPHY_API_KEY =
+    "MP9R2QfLehOoKuHJcKWzNKkpbtGE57KT";
 
 const TELEGRAM_WEBHOOK_URL =
-    "https://script.google.com/macros/s/AKfycbweMiPJjbaFP_WMfElZxg2KJON32-YyBi1d4umEG9EwMKEjgRA_KfeexRM9AdDse86-/exec";
+    "https://script.google.com/macros/s/AKfycbxJj_I7k6aNqo9JCLwvjJqmqac2npkLnCafdX2EOZRuzm17--hR1kMZ3g7ujIRpgAyG/exec";
 
+const GIPHY_SEARCH_URL =
+    "https://api.giphy.com/v1/gifs/search";
 
 const hugBtn =
-    document.getElementById(
-        "hugBtn"
-    );
-
+    document.getElementById("hugBtn");
 
 const hugStatus =
-    document.getElementById(
-        "hugStatus"
+    document.getElementById("hugStatus");
+
+const hugGif =
+    document.getElementById("hugGif");
+
+const hugMessage =
+    document.getElementById("hugMessage");
+
+
+/* -----------------------------------------------------
+   HUG MESSAGES
+----------------------------------------------------- */
+
+const hugMessages = [
+    "กอดนี้ส่งไปให้เธอนะ ♡",
+    "มารับกอดจากตรงนี้ไปนะ 🤗",
+    "กอดแน่น ๆ ให้หนึ่งทีนะ ♡",
+    "วันนี้เหนื่อยแล้ว มาพักตรงนี้ก่อนนะ",
+    "ขอส่งกอดเล็ก ๆ ไปให้คนเก่งนะ 🧸",
+    "กอดนี้ไม่ต้องพูดอะไรเลย แค่รับไว้ก็พอ ♡",
+    "อยู่ตรงนี้เสมอนะ รับกอดไปก่อน 🤍",
+    "กอดให้หายเหนื่อยนะ ♡"
+];
+
+
+/* -----------------------------------------------------
+   GIF LIST
+----------------------------------------------------- */
+
+let giphyGifs = [];
+let usedGifs = [];
+let currentGifId = null;
+
+
+/* -----------------------------------------------------
+   SHUFFLE
+----------------------------------------------------- */
+
+function shuffleHugGifs(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
+    }
+}
+
+
+/* -----------------------------------------------------
+   LOAD GIF FROM GIPHY
+----------------------------------------------------- */
+
+async function loadHugGifs() {
+
+    try {
+
+        const params =
+            new URLSearchParams({
+
+                api_key:
+                    GIPHY_API_KEY,
+
+                q:
+                    "cute hug",
+
+                limit:
+                    "50",
+
+                rating:
+                    "g",
+
+                lang:
+                    "en"
+            });
+
+
+        const response =
+            await fetch(
+                `${GIPHY_SEARCH_URL}?${params.toString()}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "GIPHY request failed"
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        giphyGifs =
+            result.data
+                .filter(
+                    gif =>
+                        gif.images &&
+                        gif.images.fixed_height &&
+                        gif.images.fixed_height.url
+                )
+                .map(
+                    gif => ({
+                        id:
+                            gif.id,
+
+                        url:
+                            gif.images.fixed_height.url
+                    })
+                );
+
+
+        /*
+            ลบ GIF ซ้ำ
+        */
+
+        giphyGifs =
+            giphyGifs.filter(
+                (gif, index, array) =>
+                    index ===
+                    array.findIndex(
+                        item =>
+                            item.id === gif.id
+                    )
+            );
+
+
+        shuffleHugGifs(
+            giphyGifs
+        );
+
+
+        /*
+            แสดง GIF แรก
+        */
+
+        showNextHugGif();
+
+
+    } catch (error) {
+
+        console.error(
+            "GIPHY ERROR:",
+            error
+        );
+
+
+        if (hugMessage) {
+
+            hugMessage.textContent =
+                "หา GIF กอดไม่สำเร็จนะ ♡";
+
+        }
+
+    }
+
+}
+
+
+/* -----------------------------------------------------
+   GET NEXT GIF
+   ไม่ซ้ำจนกว่าจะครบชุด
+----------------------------------------------------- */
+
+function getNextHugGif() {
+
+    if (
+        giphyGifs.length === 0
+    ) {
+
+        return null;
+
+    }
+
+
+    /*
+        ถ้าใช้ครบทุก GIF แล้ว
+        เริ่มรอบใหม่
+    */
+
+    if (
+        usedGifs.length >=
+        giphyGifs.length
+    ) {
+
+        usedGifs = [];
+
+        shuffleHugGifs(
+            giphyGifs
+        );
+
+    }
+
+
+    /*
+        เอาเฉพาะ GIF
+        ที่ยังไม่เคยใช้
+    */
+
+    const available =
+        giphyGifs.filter(
+            gif =>
+                !usedGifs.includes(
+                    gif.id
+                )
+        );
+
+
+    if (
+        available.length === 0
+    ) {
+
+        return null;
+
+    }
+
+
+    /*
+        สุ่ม GIF
+    */
+
+    let selected =
+        available[
+            Math.floor(
+                Math.random() *
+                available.length
+            )
+        ];
+
+
+    /*
+        ป้องกัน GIF เดิมติดกัน
+    */
+
+    if (
+        available.length > 1 &&
+        selected.id === currentGifId
+    ) {
+
+        const alternatives =
+            available.filter(
+                gif =>
+                    gif.id !== currentGifId
+            );
+
+
+        selected =
+            alternatives[
+                Math.floor(
+                    Math.random() *
+                    alternatives.length
+                )
+            ];
+
+    }
+
+
+    usedGifs.push(
+        selected.id
     );
 
+
+    currentGifId =
+        selected.id;
+
+
+    return selected;
+}
+
+
+/* -----------------------------------------------------
+   SHOW GIF
+----------------------------------------------------- */
+
+function showNextHugGif() {
+
+    const gif =
+        getNextHugGif();
+
+
+    if (
+        !gif ||
+        !hugGif
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+        Fade out
+    */
+
+    hugGif.classList.add(
+        "change"
+    );
+
+
+    setTimeout(
+        () => {
+
+            hugGif.src =
+                gif.url;
+
+
+            hugGif.onload =
+                () => {
+
+                    hugGif.classList.remove(
+                        "change"
+                    );
+
+                };
+
+        },
+        180
+    );
+
+
+    /*
+        เปลี่ยนข้อความพร้อม GIF
+    */
+
+    if (hugMessage) {
+
+        const index =
+            Math.floor(
+                Math.random() *
+                hugMessages.length
+            );
+
+
+        hugMessage.textContent =
+            hugMessages[index];
+
+    }
+
+}
+
+
+/* -----------------------------------------------------
+   HUG BUTTON
+----------------------------------------------------- */
 
 if (hugBtn) {
 
-    hugBtn.addEventListener(
-        "click",
-        async () => {
+    hugBtn.addEventListener("click", async () => {
 
-            hugBtn.disabled =
-                true;
+        // เปลี่ยน GIF ทันที
+        showNextHugGif();
 
+        hugBtn.disabled = true;
+        hugBtn.classList.add("sent");
+        hugBtn.textContent = "🤗 กอดแล้วนะ ♡";
 
-            hugBtn.classList.add(
-                "sent"
+        if (hugStatus) {
+            hugStatus.textContent = "กำลังส่งกอดไปให้...";
+        }
+
+        try {
+
+            await fetch(
+                TELEGRAM_WEBHOOK_URL,
+                {
+                    method: "POST",
+                    mode: "no-cors",
+
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+
+                    body: JSON.stringify({
+                        type: "hug"
+                    })
+                }
             );
 
-
-            hugBtn.textContent =
-                "🤗 กอดแล้วนะ ♡";
-
+            /*
+             * no-cors จะอ่าน response จาก Google Apps Script
+             * ไม่ได้ จึงห้ามใช้ response.ok
+             */
 
             if (hugStatus) {
-
                 hugStatus.textContent =
-                    "กำลังส่งกอดไปให้...";
-
+                    "กอดถูกส่งไปแล้วนะ ♡";
             }
 
+        } catch (error) {
 
-            try {
-
-                const response =
-                    await fetch(
-                        TELEGRAM_WEBHOOK_URL,
-                        {
-                            method:
-                                "POST",
-
-                            headers:
-                                {
-                                    "Content-Type":
-                                        "text/plain;charset=utf-8"
-                                },
-
-                            body:
-                                JSON.stringify(
-                                    {
-                                        type:
-                                            "hug"
-                                    }
-                                )
-                        }
-                    );
-
-
-                if (
-                    !response.ok
-                ) {
-
-                    throw new Error(
-                        "Telegram request failed"
-                    );
-
-                }
-
-
-                if (hugStatus) {
-
-                    hugStatus.textContent =
-                        "กอดถูกส่งไปแล้วนะ ♡";
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-
-                if (hugStatus) {
-
-                    hugStatus.textContent =
-                        "ส่งไม่สำเร็จ ลองอีกครั้งนะ ♡";
-
-                }
-
-
-                hugBtn.disabled =
-                    false;
-
-
-                hugBtn.classList.remove(
-                    "sent"
-                );
-
-
-                hugBtn.textContent =
-                    "🤗 กอดหน่อย";
-
-
-                return;
-
-            }
-
-
-            setTimeout(
-                () => {
-
-                    hugBtn.disabled =
-                        false;
-
-
-                    hugBtn.classList.remove(
-                        "sent"
-                    );
-
-
-                    hugBtn.textContent =
-                        "🤗 กอดอีกครั้ง";
-
-                },
-                4000
+            console.error(
+                "Telegram ERROR:",
+                error
             );
+
+            if (hugStatus) {
+                hugStatus.textContent =
+                    "ส่งไม่สำเร็จ ลองอีกครั้งนะ ♡";
+            }
+        }
+
+        setTimeout(() => {
+
+            hugBtn.disabled = false;
+            hugBtn.classList.remove("sent");
+            hugBtn.textContent = "🤗 กอด";
+
+        }, 1800);
+
+    });
+
+}
+
+/* -----------------------------------------------------
+   START GIPHY
+----------------------------------------------------- */
+
+loadHugGifs();
+/* =====================================================
+   PAGE 08 : HIDDEN PICTURE PUZZLE
+===================================================== */
+
+const PUZZLE_SIZE = 3;
+
+const PUZZLE_TOTAL =
+    PUZZLE_SIZE * PUZZLE_SIZE;
+
+
+/*
+   รูปจริง
+
+   ต้องอยู่โฟลเดอร์เดียวกับ index.html
+*/
+
+const PUZZLE_IMAGE =
+    "her-photo.jpg";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const puzzleBoard =
+    document.getElementById(
+        "puzzleBoard"
+    );
+
+
+const puzzleShuffle =
+    document.getElementById(
+        "puzzleShuffle"
+    );
+
+
+const puzzleWinModal =
+    document.getElementById(
+        "puzzleWinModal"
+    );
+
+
+const puzzleCloseModal =
+    document.getElementById(
+        "puzzleCloseModal"
+    );
+
+
+const puzzleRevealImage =
+    document.getElementById(
+        "puzzleRevealImage"
+    );
+
+
+const puzzleFinalMessage =
+    document.getElementById(
+        "puzzleFinalMessage"
+    );
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let puzzlePieces = [];
+
+let puzzleSelected = null;
+
+let puzzleMoves = 0;
+
+
+/* =====================================================
+   CREATE BOARD
+===================================================== */
+
+function createPuzzleBoard() {
+
+    if (!puzzleBoard) {
+        return;
+    }
+
+
+    puzzleBoard.innerHTML = "";
+
+
+    puzzlePieces = [];
+
+
+    puzzleSelected = null;
+
+
+    puzzleMoves = 0;
+
+
+    /*
+       สร้าง 9 ชิ้น
+    */
+
+    for (
+        let i = 0;
+        i < PUZZLE_TOTAL;
+        i++
+    ) {
+
+        const row =
+            Math.floor(
+                i / PUZZLE_SIZE
+            );
+
+
+        const col =
+            i % PUZZLE_SIZE;
+
+
+        const piece =
+            document.createElement(
+                "button"
+            );
+
+
+        piece.type =
+            "button";
+
+
+        piece.className =
+            "puzzle-piece";
+
+
+        /*
+           ชิ้นนี้ควรอยู่ช่องไหน
+
+           1 2 3
+           4 5 6
+           7 8 9
+        */
+
+        piece.dataset.correct =
+            i + 1;
+
+
+        /*
+           ตอนเริ่มยังอยู่
+           ตำแหน่งตัวเอง
+        */
+
+        piece.dataset.current =
+            i + 1;
+
+
+        /*
+           ภาพจริงด้านใน
+
+           แต่ CSS จะเบลอไว้
+        */
+
+        piece.style.backgroundImage =
+            `url("${PUZZLE_IMAGE}")`;
+
+
+        piece.style.backgroundSize =
+            "300% 300%";
+
+
+        piece.style.backgroundPosition =
+            `${col * 50}% ${row * 50}%`;
+
+
+        /*
+           เลขกำกับชิ้น
+        */
+
+        const number =
+            document.createElement(
+                "span"
+            );
+
+
+        number.className =
+            "puzzle-piece-number";
+
+
+        number.textContent =
+            i + 1;
+
+
+        piece.appendChild(
+            number
+        );
+
+
+        /*
+           คลิก
+        */
+
+        piece.addEventListener(
+            "click",
+            () => {
+
+                handlePuzzleClick(
+                    piece
+                );
+
+            }
+        );
+
+
+        puzzlePieces.push(
+            piece
+        );
+
+
+        puzzleBoard.appendChild(
+            piece
+        );
+
+    }
+
+
+    /*
+       สำคัญมาก
+
+       เปิดหน้า Puzzle แล้ว
+       สลับทันที
+    */
+
+    shufflePuzzleBoard();
+
+}
+
+
+/* =====================================================
+   CLICK
+===================================================== */
+
+function handlePuzzleClick(
+    piece
+) {
+
+    /*
+       คลิกชิ้นแรก
+    */
+
+    if (!puzzleSelected) {
+
+        puzzleSelected =
+            piece;
+
+
+        piece.classList.add(
+            "selected"
+        );
+
+
+        return;
+    }
+
+
+    /*
+       คลิกชิ้นเดิม
+    */
+
+    if (
+        puzzleSelected ===
+        piece
+    ) {
+
+        piece.classList.remove(
+            "selected"
+        );
+
+
+        puzzleSelected =
+            null;
+
+
+        return;
+    }
+
+
+    /*
+       สลับ
+    */
+
+    swapPuzzlePieces(
+        puzzleSelected,
+        piece
+    );
+
+
+    puzzleSelected.classList.remove(
+        "selected"
+    );
+
+
+    puzzleSelected =
+        null;
+
+
+    puzzleMoves++;
+
+
+    /*
+       ตรวจว่าชนะหรือยัง
+    */
+
+    checkPuzzleWin();
+
+}
+
+
+/* =====================================================
+   SWAP
+===================================================== */
+
+function swapPuzzlePieces(
+    first,
+    second
+) {
+
+    /*
+       current position
+    */
+
+    const firstCurrent =
+        first.dataset.current;
+
+
+    const secondCurrent =
+        second.dataset.current;
+
+
+    /*
+       ภาพ
+    */
+
+    const firstBackground =
+        first.style.backgroundPosition;
+
+
+    const secondBackground =
+        second.style.backgroundPosition;
+
+
+    /*
+       สลับ current
+    */
+
+    first.dataset.current =
+        secondCurrent;
+
+
+    second.dataset.current =
+        firstCurrent;
+
+
+    /*
+       สลับภาพ
+    */
+
+    first.style.backgroundPosition =
+        secondBackground;
+
+
+    second.style.backgroundPosition =
+        firstBackground;
+
+
+    /*
+       สลับเลข
+
+       เลขต้องติดไปกับชิ้นรูป
+    */
+
+    const firstNumber =
+        first.querySelector(
+            ".puzzle-piece-number"
+        );
+
+
+    const secondNumber =
+        second.querySelector(
+            ".puzzle-piece-number"
+        );
+
+
+    const temp =
+        firstNumber.textContent;
+
+
+    firstNumber.textContent =
+        secondNumber.textContent;
+
+
+    secondNumber.textContent =
+        temp;
+
+}
+
+
+/* =====================================================
+   SHUFFLE
+===================================================== */
+
+function shufflePuzzleBoard() {
+
+    if (
+        puzzlePieces.length === 0
+    ) {
+        return;
+    }
+
+
+    /*
+       สุ่ม 60 ครั้ง
+    */
+
+    for (
+        let i = 0;
+        i < 60;
+        i++
+    ) {
+
+        const randomA =
+            Math.floor(
+                Math.random() *
+                puzzlePieces.length
+            );
+
+
+        let randomB =
+            Math.floor(
+                Math.random() *
+                puzzlePieces.length
+            );
+
+
+        while (
+            randomA === randomB
+        ) {
+
+            randomB =
+                Math.floor(
+                    Math.random() *
+                    puzzlePieces.length
+                );
+
+        }
+
+
+        swapPuzzlePieces(
+            puzzlePieces[randomA],
+            puzzlePieces[randomB]
+        );
+
+    }
+
+
+    /*
+       ถ้าบังเอิญเรียงถูก
+       ให้สับใหม่
+    */
+
+    if (
+        isPuzzleSolved()
+    ) {
+
+        shufflePuzzleBoard();
+
+    }
+
+
+    puzzleMoves = 0;
+
+}
+
+
+/* =====================================================
+   CHECK SOLVED
+===================================================== */
+
+function isPuzzleSolved() {
+
+    for (
+        let i = 0;
+        i < puzzlePieces.length;
+        i++
+    ) {
+
+        const piece =
+            puzzlePieces[i];
+
+
+        /*
+           ช่องที่ i ต้องมี
+           ชิ้นเลข i + 1
+        */
+
+        if (
+            Number(
+                piece.dataset.current
+            ) !==
+            i + 1
+        ) {
+
+            return false;
+
+        }
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   WIN
+===================================================== */
+
+function checkPuzzleWin() {
+
+    if (
+        !isPuzzleSolved()
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+       ให้รูปนิ่งก่อน
+       แล้วค่อยเปิด Popup
+    */
+
+    setTimeout(
+        () => {
+
+            showPuzzleWin();
+
+        },
+        400
+    );
+
+}
+
+
+/* =====================================================
+   SHOW WIN
+===================================================== */
+
+function showPuzzleWin() {
+
+    if (!puzzleWinModal) {
+        return;
+    }
+
+
+    /*
+       เปิด Popup
+    */
+
+    puzzleWinModal.classList.add(
+        "show"
+    );
+
+
+    /*
+       Confetti
+    */
+
+    createPuzzleConfetti(
+        70
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE WIN
+   → SHOW FINAL MESSAGE
+===================================================== */
+
+if (puzzleCloseModal) {
+
+    puzzleCloseModal.addEventListener(
+        "click",
+        () => {
+
+            /*
+               ปิด Popup
+            */
+
+            puzzleWinModal.classList.remove(
+                "show"
+            );
+
+
+            /*
+               แสดงข้อความสุดท้าย
+            */
+
+            if (
+                puzzleFinalMessage
+            ) {
+
+                puzzleFinalMessage.classList.add(
+                    "show"
+                );
+
+
+                /*
+                   เลื่อนลงไปหาข้อความ
+                */
+
+                setTimeout(
+                    () => {
+
+                        puzzleFinalMessage.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+
+                    },
+                    150
+                );
+
+            }
 
         }
     );
@@ -1827,90 +2753,107 @@ if (hugBtn) {
 
 
 /* =====================================================
-   FINAL SURPRISE
+   SHUFFLE BUTTON
 ===================================================== */
 
-const openGift =
-    document.getElementById(
-        "openGift"
-    );
+if (puzzleShuffle) {
 
-
-const finalMessage =
-    document.getElementById(
-        "finalMessage"
-    );
-
-
-const finalTitle =
-    document.getElementById(
-        "finalTitle"
-    );
-
-
-const finalText =
-    document.getElementById(
-        "finalText"
-    );
-
-
-const gift =
-    document.getElementById(
-        "gift"
-    );
-
-
-if (openGift) {
-
-    openGift.addEventListener(
+    puzzleShuffle.addEventListener(
         "click",
         () => {
 
-            if (finalMessage) {
+            /*
+               ถ้ากำลังเลือกชิ้นอยู่
+               ให้ยกเลิกก่อน
+            */
 
-                finalMessage.classList.remove(
-                    "hidden"
+            if (
+                puzzleSelected
+            ) {
+
+                puzzleSelected.classList.remove(
+                    "selected"
                 );
 
-            }
-
-
-            if (finalTitle) {
-
-                finalTitle.textContent =
-                    "จริง ๆ แล้ว... ♡";
+                puzzleSelected =
+                    null;
 
             }
 
 
-            if (finalText) {
-
-                finalText.textContent =
-                    "มีบางอย่างที่อยากบอก";
-
-            }
-
-
-            if (gift) {
-
-                gift.textContent =
-                    "💗";
-
-            }
-
-
-            openGift.textContent =
-                "เปิดแล้วนะ ♡";
-
-
-            openGift.disabled =
-                true;
+            shufflePuzzleBoard();
 
         }
     );
 
 }
 
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+function createPuzzleConfetti(
+    amount
+) {
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const confetti =
+            document.createElement(
+                "div"
+            );
+
+
+        confetti.className =
+            "puzzle-confetti";
+
+
+        confetti.textContent =
+            Math.random() > 0.5
+                ? "♡"
+                : "✦";
+
+
+        confetti.style.left =
+            Math.random() * 100 + "%";
+
+
+        confetti.style.top =
+            Math.random() * 30 + "%";
+
+
+        confetti.style.animationDelay =
+            Math.random() * 0.5 + "s";
+
+
+        document.body.appendChild(
+            confetti
+        );
+
+
+        setTimeout(
+            () => {
+
+                confetti.remove();
+
+            },
+            3500
+        );
+
+    }
+
+}
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+createPuzzleBoard();
 
 /* =====================================================
    INIT
@@ -1923,5 +2866,283 @@ if (encourageText) {
 
     encourageText.style.transition =
         ".3s ease";
+
+}
+/* =====================================================
+   MUSIC APP TABS — HOME / PLAYLIST
+===================================================== */
+const musicApp = document.querySelector('.music-app');
+const homeTab = document.querySelector('[data-player-tab="home"]');
+const playlistTab = document.querySelector('[data-player-tab="playlist"]');
+const homeRoom = document.getElementById('homeRoom');
+const playlistRoom = document.getElementById('playlistRoom');
+const homeToast = document.getElementById('homeToast');
+const homeClock = document.getElementById('homeClock');
+const homeNoteCard = document.getElementById('homeNoteCard');
+
+function setMusicView(view) {
+    if (!musicApp) return;
+    const isHome = view === 'home';
+    musicApp.classList.toggle('home-mode', isHome);
+    musicApp.classList.toggle('playlist-mode', !isHome);
+    homeTab?.classList.toggle('active', isHome);
+    playlistTab?.classList.toggle('active', !isHome);
+}
+
+homeTab?.addEventListener('click', () => setMusicView('home'));
+playlistTab?.addEventListener('click', () => setMusicView('playlist'));
+
+function showHomeToast(message) {
+    if (!homeToast) return;
+    const p = homeToast.querySelector('p');
+    if (p) p.textContent = message;
+    homeToast.classList.add('show');
+    clearTimeout(window.homeToastTimer);
+    window.homeToastTimer = setTimeout(() => homeToast.classList.remove('show'), 2200);
+}
+
+document.querySelectorAll('.pixel-object').forEach(object => {
+    object.addEventListener('click', () => {
+        showHomeToast(object.dataset.homeNote || '♡');
+    });
+});
+
+homeNoteCard?.addEventListener('click', () => {
+    showHomeToast('วันนี้ไม่ต้องรีบก็ได้นะ ค่อย ๆ ใช้เวลาไปด้วยกัน ♡');
+});
+
+function updateHomeClock() {
+    if (!homeClock) return;
+    const now = new Date();
+    homeClock.textContent = now.toLocaleTimeString('th-TH', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    });
+}
+updateHomeClock();
+setInterval(updateHomeClock, 1000);
+
+setMusicView('home');
+
+/* =====================================================
+   MESSAGE CHAT
+===================================================== */
+
+const messagePage =
+    document.getElementById("messagePage");
+
+const messageBubbles =
+    document.querySelectorAll(
+        "#messageChat .hidden-bubble"
+    );
+
+const messageTyping =
+    document.getElementById("typing");
+
+let messageStarted = false;
+
+
+/* =====================================================
+   START MESSAGE
+===================================================== */
+
+function startMessageAnimation() {
+
+    if (
+        !messagePage ||
+        messageStarted
+    ) {
+        return;
+    }
+
+    messageStarted = true;
+
+
+    /* ซ่อนข้อความทั้งหมด */
+
+    messageBubbles.forEach(
+        bubble => {
+
+            bubble.classList.remove("show");
+
+        }
+    );
+
+
+    /* แสดง typing */
+
+    if (messageTyping) {
+
+        messageTyping.style.display =
+            "flex";
+
+        messageTyping.style.opacity =
+            "1";
+
+    }
+
+
+    /* ส่งข้อความทีละข้อความ */
+
+    messageBubbles.forEach(
+        bubble => {
+
+            const delay =
+                Number(
+                    bubble.dataset.delay || 0
+                );
+
+
+            setTimeout(
+                () => {
+
+                    if (messageTyping) {
+
+                        messageTyping.style.opacity =
+                            "0";
+
+                    }
+
+
+                    setTimeout(
+                        () => {
+
+                            bubble.classList.add(
+                                "show"
+                            );
+
+
+                            /* เลื่อนลงหาข้อความล่าสุด */
+
+                            const chat =
+                                document.getElementById(
+                                    "messageChat"
+                                );
+
+
+                            if (chat) {
+
+                                chat.scrollTo({
+
+                                    top:
+                                        chat.scrollHeight,
+
+                                    behavior:
+                                        "smooth"
+
+                                });
+
+                            }
+
+
+                            /* typing กลับมา */
+
+                            if (messageTyping) {
+
+                                messageTyping.style.opacity =
+                                    "1";
+
+                            }
+
+                        },
+                        180
+                    );
+
+                },
+                delay
+            );
+
+        }
+    );
+
+
+    /* ซ่อน typing หลังข้อความสุดท้าย */
+
+    const lastBubble =
+        messageBubbles[
+            messageBubbles.length - 1
+        ];
+
+
+    const lastDelay =
+        Number(
+            lastBubble?.dataset.delay || 0
+        );
+
+
+    setTimeout(
+        () => {
+
+            if (messageTyping) {
+
+                messageTyping.style.opacity =
+                    "0";
+
+                setTimeout(
+                    () => {
+
+                        messageTyping.style.display =
+                            "none";
+
+                    },
+                    300
+                );
+
+            }
+
+        },
+        lastDelay + 700
+    );
+
+}
+
+
+/* =====================================================
+   DETECT MESSAGE PAGE
+===================================================== */
+
+if (messagePage) {
+
+    const messageObserver =
+        new MutationObserver(
+            () => {
+
+                if (
+                    messagePage.classList.contains(
+                        "active"
+                    )
+                ) {
+
+                    startMessageAnimation();
+
+                }
+
+            }
+        );
+
+
+    messageObserver.observe(
+        messagePage,
+        {
+            attributes: true,
+            attributeFilter: [
+                "class"
+            ]
+        }
+    );
+
+
+    /* กรณี Message เปิดอยู่ตั้งแต่แรก */
+
+    if (
+        messagePage.classList.contains(
+            "active"
+        )
+    ) {
+
+        startMessageAnimation();
+
+    }
 
 }
